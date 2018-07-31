@@ -5,7 +5,9 @@ import Navigation from './components/navigation/Navigation.js';
 import FaceRecognition from './components/facerecognition/FaceRecognition.js';
 import Logo from './components/logo/Logo.js';
 import Rank from './components/rank/Rank.js';
+import SignIn from './components/signin/SignIn.js';
 import ImageLinkForm from './components/imagelinkform/ImageLinkForm.js';
+import Register from './components/register/Register.js';
 import './App.css';
  
 const app = new Clarifai.App({
@@ -90,6 +92,7 @@ class App extends Component {
       input: '',
       imageUrl: '',
       box: {},
+      route:'home', 
     }
   }
 
@@ -122,18 +125,52 @@ class App extends Component {
       this.displayFaceBox(this.calculateFaceLocation(response))}).catch(err => console.log(err));
   }
 
+  onRouteChange = (route) => {
+    this.setState({route: route})
+  }
+
   render() {
-    return (
+    if(this.state.route === 'home'){
+      return (
+      <div className="App">
+        <Particles className='particles'
+        params={particleOptions}/>
+        <Navigation onRouteChange={this.onRouteChange} />
+        <SignIn onRouteChange={this.onRouteChange}/>
+      </div>
+    );
+    }
+    else if(this.state.route === 'main'){
+      return (
       <div className="App">
         <Particles className='particles'
         params={particleOptions}/>
         <Navigation />
         <Logo />
         <Rank />
-        <ImageLinkForm onInputChange={this.onInputChange} onButtonSubmit={this.onButtonSubmit}/>
+        <ImageLinkForm onInputChange={this.onInputChange} onButtonSubmit={this.onButtonSubmit} onRouteChange={this.onRouteChange}/>
         <FaceRecognition box={this.state.box} imageUrl={this.state.imageUrl} />
       </div>
     );
+    }
+      else if(this.state.route === 'register'){
+      return (
+      <div className="App">
+        <Particles className='particles'
+        params={particleOptions}/>
+        <Navigation onRouteChange={this.onRouteChange}/>
+        <Register onRouteChange={this.onRouteChange}/>
+      </div>
+    );
+    } else {
+      return (
+      <div className="App">
+        <Particles className='particles'
+        params={particleOptions}/>
+        <Navigation />
+        <Logo />
+      </div> );
+    }
   }
 }
 

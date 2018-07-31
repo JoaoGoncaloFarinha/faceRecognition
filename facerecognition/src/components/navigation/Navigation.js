@@ -1,10 +1,13 @@
 import React from 'react';
 
-const Navigation = () => {
+const Navigation = ({onRouteChange}) => {
 	return(
-		<nav style={{display: 'flex', justifyContent:'flex-end'}}>
-			<p className='link dm underline f3 black pa3 pointer'>Sign Out</p>
+		<div style={{display: 'flex', justifyContent:'flex-end'}}>
+		<nav className='bt bb tc mw5 mt4 w-100 ' style={{ display: 'flex', justifyContent:'flex-end'}}>
+			<a className="f6 f5-l link bg-animate black-80 hover-bg-lightest-blue dib pa3 ph4-l" onClick={() => onRouteChange('home') }>Sign In</a>
+		    <a className="f6 f5-l link bg-animate black-80 hover-bg-lightest-blue dib pa3 ph4-l" onClick={() => onRouteChange('register') }>Register</a>
 		</nav>
+		</div>
 	);
 }
 
